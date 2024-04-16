@@ -1,6 +1,9 @@
-import {ModalProps} from "../types/types.tsx";
+import React from "react";
 
-export default function AddModal(modalProps: ModalProps) {
+interface AddModalProps {
+    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void,
+}
+export default function AddModal(modalProps: AddModalProps) {
     return(
         <div>
             <h2>Add New Project</h2>
