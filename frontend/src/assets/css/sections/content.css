@@ -1,0 +1,28 @@
+.project-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+}
+
+.project-card h2 {
+    margin-top: 0;
+}
+
+.project-card p {
+    margin-bottom: 0;
+}
+
+.project-card-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+
+.project-card.selected {
+    border-color: blue;
+    /* Weitere Stile für eine ausgewählte Card */
+}

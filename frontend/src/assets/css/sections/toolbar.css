@@ -1,0 +1,24 @@
+.toolbar {
+    background-color: #333;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Stelle sicher, dass der sticky header über anderen Inhalten liegt */
+}
+
+.toolbar button {
+    background-color: #fff;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5; /* Ändere die Opazität nach Bedarf */
+    /* Weitere Stile für den deaktivierten Button */
+}
