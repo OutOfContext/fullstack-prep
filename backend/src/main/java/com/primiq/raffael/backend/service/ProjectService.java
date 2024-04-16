@@ -20,7 +20,6 @@ public class ProjectService {
     }
 
     public Project createProject(ProjectCreationRequest creationRequest) {
-
         Project project = new Project();
         project.setAuthor(creationRequest.getAuthor());
         project.setPath(creationRequest.getPath());
