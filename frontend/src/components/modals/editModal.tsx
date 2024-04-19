@@ -1,4 +1,4 @@
-import {Project} from "../types/types.tsx";
+import {Project} from "../../types/types.tsx";
 import React, {useState} from "react";
 
 interface EditModalProps {

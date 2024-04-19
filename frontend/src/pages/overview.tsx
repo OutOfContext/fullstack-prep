@@ -6,10 +6,11 @@ import Footer from "../sections/footer.tsx";
 import {HeaderData, Project} from "../types/types.tsx";
 import Toolbar from "../sections/toolbar.tsx";
 import Modal from "../sections/modal.tsx";
-import AddModal from "../components/addModal.tsx";
-import DeleteModal from "../components/deleteModal.tsx";
-import EditModal from "../components/editModal.tsx";
-
+import AddModal from "../components/modals/addModal.tsx";
+import DeleteModal from "../components/modals/deleteModal.tsx";
+import EditModal from "../components/modals/editModal.tsx";
+import ProjectList from "../components/content/projectList.tsx";
+import "../assets/css/pages/overview.css";
 
 export default function Overview() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -20,19 +21,33 @@ export default function Overview() {
 
     const headerData: HeaderData = {
         title: "Overview",
-        breadcrumbs: "/",
         navigation: {
-            navItems: [
+            sections: [
                 {
-                    displayName: "Home",
-                    targetPath: "/"
+                    displayName: "Pages",
+                    navItems: [
+                        {
+                            displayName:"Home",
+                            targetPath: "/"
+                        }
+                    ]
+                },
+                {
+                    navItems: [
+                        {
+                            displayName: "Sign Out",
+                            targetPath: "/logout"
+                        }
+                    ]
                 }
             ]
         }
     }
 
     useEffect(() => {
-        axios.get("/api/projects")
+        axios.get("/api/projects", {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}`}
+        })
             .then(res => {
                 if (res.data.status === 200) {
                     setProjects(res.data.content)
@@ -41,7 +56,6 @@ export default function Overview() {
                 }
             })
             .catch(err => {
-                alert("Error occurred while trying to reach Server.");
                 console.log("Error: ", err);
             })
     }, [])
@@ -171,12 +185,13 @@ export default function Overview() {
             console.error('There was a problem with the request:', error);
         }
     };
+
     return (
         <>
             <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
-                <Header data={headerData}/>
+                <Header data={headerData} breadcrumbs={true}/>
                 <Toolbar handleShowModal={handleShowModal} selectedProjectIndex={selectedProjectIndex}/>
-                <Content data={projects} selectedProjectIndex={selectedProjectIndex} handleSelect={handleProjectClick}/>
+                <Content data={<ProjectList data={projects} selectedProjectIndex={selectedProjectIndex} handleSelect={handleProjectClick}/>} />
                 <Modal active={showModal} form={modal} handleCloseModal={handleCloseModal}/>
                 <Footer/>
             </div>

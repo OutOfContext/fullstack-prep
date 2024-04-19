@@ -1,4 +1,4 @@
-package com.primiq.raffael.backend.model.dto;
+package com.primiq.raffael.backend.model.dto.request;
 
 import lombok.Data;
 

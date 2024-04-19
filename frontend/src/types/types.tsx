@@ -6,19 +6,23 @@ export type Project = {
 }
 
 export interface HeaderProps {
-    data: HeaderData
+    data: HeaderData,
+    breadcrumbs: boolean
 }
 
 export type HeaderData = {
     title: string,
-    breadcrumbs: string | string[],
     navigation: Navigation
 }
 
 export type Navigation = {
-    navItems: NavItem[]
+    sections: SectionItem[]
 }
 
+export type SectionItem = {
+    displayName?: string,
+    navItems: NavItem[]
+}
 export type NavItem = {
     displayName: string,
     targetPath: string

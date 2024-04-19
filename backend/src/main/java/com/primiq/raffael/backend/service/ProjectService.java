@@ -1,8 +1,8 @@
 package com.primiq.raffael.backend.service;
 
 import com.primiq.raffael.backend.model.dao.Project;
-import com.primiq.raffael.backend.model.dto.ProjectCreationRequest;
-import com.primiq.raffael.backend.model.dto.ProjectUpdateRequest;
+import com.primiq.raffael.backend.model.dto.request.ProjectCreationRequest;
+import com.primiq.raffael.backend.model.dto.request.ProjectUpdateRequest;
 import com.primiq.raffael.backend.model.repository.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -82,7 +82,7 @@ jobs:
     needs: push-to-docker-hub
     environment:
       name: Course Manager # Capstone Project name
-      url: https://primiq-academy.com/ # Link to deployment
+      url: https://fullstack-prep-latest-xwkc.onrender.com/ # Link to deployment
     steps:
       - name: Trigger Render.com Deployment
         run: |

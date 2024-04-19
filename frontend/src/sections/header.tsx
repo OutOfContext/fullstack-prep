@@ -1,19 +1,57 @@
 import {HeaderProps} from "../types/types.tsx";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import "../assets/css/sections/header.css";
 
 
 export default function Header(headerProps: HeaderProps) {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: Event) {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     const [headerData] = useState(headerProps.data);
+
+    let navigationClass = "navigation";
+    if (menuOpen) {
+        navigationClass += " active";
+    }
 
     return (
         <header style={{backgroundColor: '#333', color: '#fff', padding: '20px', textAlign: 'center'}}>
             <h1>{headerData.title}</h1>
-            <nav style={{display: 'flex', justifyContent: 'center', marginTop: '10px'}}>
-                {headerData.navigation.navItems.map((item, index) => (
-                    <a key={index} href={item.targetPath} style={{color: '#fff', textDecoration: 'none', padding: '0 10px'}}>{item.displayName}</a>
-                ))}
-            </nav>
+            <div className="burger-container">
+                <div className="burger-menu" onClick={() => setMenuOpen(!menuOpen)} ref={menuRef}>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                    <div className="bar"></div>
+                </div>
+            </div>
+            {menuOpen &&
+                <nav className={navigationClass}>
+                    {headerData.navigation.sections.map((section, index) => (
+                        <div key={index}>
+                            {section.displayName && <h3>{section.displayName}</h3>}
+                            <div className="separator-horizontal"></div>
+                            <ul>
+                                {section.navItems.map((navItem, indexNo) => (
+                                    <li key={indexNo}><a href={navItem.targetPath}>{navItem.displayName}</a></li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </nav>
+            }
         </header>
     )
 }

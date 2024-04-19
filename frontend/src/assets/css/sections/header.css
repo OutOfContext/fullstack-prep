@@ -1,0 +1,61 @@
+/* Stile für das Burger-Menu */
+.burger-container {
+    text-align: center; /* Zentriert den Inhalt horizontal */
+}
+
+.burger-menu {
+    display: inline-block; /* Ermöglicht das Zentrieren */
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #000;
+    margin: 5px 0;
+}
+
+.navigation {
+    position: fixed;
+    left: 0%;
+    width: 100%;
+    min-height: 200px;
+    background-color: white;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #888888;
+    border-width: 2px;
+    display: none; /* Standardmäßig ausblenden */
+    z-index: 9999;
+}
+
+.navigation ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.navigation ul li {
+    padding: 20px 0;
+}
+
+.navigation a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.navigation.active {
+    display: block; /* Bei Klick anzeigen */
+}
+
+header h3 {
+    color: #1a1a1a;
+}
+
+.separator-horizontal {
+    width: 50%; /* Breite des Separators */
+    height: 1px;
+    background-color: #000; /* Farbe der Linie */
+    margin: 10px auto; /* Zentrieren des Separators und optionaler Platz oben und unten */
+}
