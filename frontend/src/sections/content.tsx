@@ -6,10 +6,10 @@ type ContentProps = {
 }
 export default function Content({data}: ContentProps) {
 
-        return (
-            <main style={{padding: '20px'}}>
-                {data}
-            </main>
-        );
+    return (
+        <main style={{padding: '20px'}}>
+            {data}
+        </main>
+    );
 
 }

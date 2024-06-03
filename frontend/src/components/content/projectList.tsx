@@ -9,10 +9,10 @@ interface ProjectListProps {
 export default function ProjectList({data, selectedProjectIndex, handleSelect}: ProjectListProps) {
     if (data.length > 0) {
         return (
-            <div className="project-card-list">
+            <div className="card-list">
                 {data.sort((pro1, pro2) => pro1.id - pro2.id).map((project) => (
                     <div key={project.id}
-                         className={`project-card ${project.id === selectedProjectIndex ? 'selected' : ''}`}
+                         className={`card ${project.id === selectedProjectIndex ? 'selected' : ''}`}
                          onClick={() => handleSelect(project.id)}>
                         <h2>{project.author}</h2>
                         <p>ID: {project.id}</p>
@@ -23,7 +23,7 @@ export default function ProjectList({data, selectedProjectIndex, handleSelect}: 
         )
     } else {
         return (
-            <div className="project-card">
+            <div className="card">
                 No result found.
             </div>
         )

@@ -1,4 +1,4 @@
-.project-card {
+.card {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -8,41 +8,41 @@
     cursor: pointer;
 }
 
-.project-card h2 {
+.card h2 {
     margin-top: 0;
 }
 
-.project-card p {
+.card p {
     margin-bottom: 0;
 }
 
 /* Stile für Tablet-Ansicht */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .project-card-list {
+    .card-list {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 20px;
     }
 
-    .project-card {
+    .card {
         flex-basis: calc(33.33% - 20px);
     }
 }
 
 @media (min-width: 1025px) {
-    .project-card-list {
+    .card-list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
     }
 
-    .project-card {
+    .card {
         flex-basis: auto; /* Zurücksetzen auf automatische Breite */
         margin-bottom: 20px;
     }
 }
 
-.project-card.selected {
+.card.selected {
     border-color: blue;
     /* Weitere Stile für eine ausgewählte Card */
 }

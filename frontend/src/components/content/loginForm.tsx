@@ -1,10 +1,11 @@
-import "../../assets/css/pages/login.css"
+import "../../assets/css/pages/login.css";
 import React from "react";
 import axios from "axios";
 import {useNavigate} from "react-router";
+import {useAlert} from "../../util/AlertContext.tsx";
 
 export default function LoginForm() {
-
+    const { showAlert } = useAlert();
     const navigate = useNavigate();
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -16,12 +17,16 @@ export default function LoginForm() {
 
         axios.post("/api/login", requestData)
             .then(response => {
-                console.log(response.data?.content?.token);
+                console.log(response);
                 localStorage.setItem("token", response.data?.content?.token);
+                localStorage.setItem("user", JSON.stringify(response.data?.content?.account));
                 navigate("/overview");
             })
             .catch(error => {
-                console.log("Communication between Client & Server failed.", error);
+                if (error.response.status > 400) {
+                    showAlert("Username or Password is incorrect.","error");
+                }
+
             })
     }
 
@@ -32,7 +37,7 @@ export default function LoginForm() {
                 <input type="text" id="username" name="username" required/>
                 <label htmlFor="password">Password:</label>
                 <input type="password" id="password" name="password" required></input>
-                <button type="submit">Sign In</button>
+                <button type="submit" className="login-btn">Sign In</button>
             </form>
         </div>
     )

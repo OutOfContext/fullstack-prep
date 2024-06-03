@@ -12,6 +12,7 @@ public class FPUserDetails implements UserDetails {
     private String password;
     Collection<? extends GrantedAuthority> authorities;
 
+
     public FPUserDetails(Account account) {
         this.username = account.getUsername();
         this.password = account.getPassword();

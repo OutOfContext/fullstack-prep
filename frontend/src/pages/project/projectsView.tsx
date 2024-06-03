@@ -1,34 +1,46 @@
 import React, {useEffect, useState} from "react";
+import {HeaderData, Project} from "../../types/types.tsx";
 import axios from "axios";
-import Header from "../sections/header.tsx";
-import Content from "../sections/content.tsx";
-import Footer from "../sections/footer.tsx";
-import {HeaderData, Project} from "../types/types.tsx";
-import Toolbar from "../sections/toolbar.tsx";
-import Modal from "../sections/modal.tsx";
-import AddModal from "../components/modals/addModal.tsx";
-import DeleteModal from "../components/modals/deleteModal.tsx";
-import EditModal from "../components/modals/editModal.tsx";
-import ProjectList from "../components/content/projectList.tsx";
-import "../assets/css/pages/overview.css";
+import AddModal from "../../components/modals/organization/addModal.tsx";
+import DeleteModal from "../../components/modals/organization/deleteModal.tsx";
+import EditModal from "../../components/modals/organization/editModal.tsx";
+import Header from "../../sections/header.tsx";
+import Toolbar from "../../sections/toolbar.tsx";
+import Content from "../../sections/content.tsx";
+import ProjectList from "../../components/content/projectList.tsx";
+import Modal from "../../sections/modal.tsx";
+import Footer from "../../sections/footer.tsx";
 
-export default function Overview() {
+export default function ProjectsView(){
     const [projects, setProjects] = useState<Project[]>([]);
     const [showModal, setShowModal] = useState(false);
-    const [selectedProjectIndex, setSelectedProjectIndex] = useState<number | null>(null);
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [selectedItem, setSelectedItem] = useState<Project | null>(null)
     const [modal, setModal] = useState<React.JSX.Element | null>(null);
 
+    const projectForm: Project = {
+        id:0,
+        path: "",
+        author: ""
+    }
     const headerData: HeaderData = {
-        title: "Overview",
+        title: "Projects",
         navigation: {
             sections: [
                 {
                     displayName: "Pages",
                     navItems: [
                         {
-                            displayName:"Home",
+                            displayName:"Organizations",
                             targetPath: "/"
+                        },
+                        {
+                            displayName: "Teams",
+                            targetPath: "/teams"
+                        },
+                        {
+                            displayName: "Projects",
+                            targetPath: "/projects"
                         }
                     ]
                 },
@@ -61,16 +73,16 @@ export default function Overview() {
     }, [])
 
     const handleProjectClick = (index: number) => {
-        setSelectedProjectIndex(index);
+        setSelectedIndex(index);
         const foundProject = projects.filter((project) => project.id === index);
-        setSelectedProject(foundProject[0]);
+        setSelectedItem(foundProject[0]);
     };
 
     const handleShowModal = (type: string) => {
         switch (type) {
-            case 'add': setModal(<AddModal handleSubmit={handleAddFormSubmit}/>); break;
-            case 'delete': setModal(<DeleteModal handleSubmit={handleDeleteFormSubmit} index={selectedProjectIndex ? selectedProjectIndex : 0}/>); break;
-            case 'edit': setModal(<EditModal project={selectedProject} handleSubmit={(event) => handleEditFormSubmit(event, selectedProjectIndex)}/>); break;
+            case 'add': setModal(<AddModal title="Project" target={projectForm} handleSubmit={handleAddFormSubmit}/>); break;
+            case 'delete': setModal(<DeleteModal handleSubmit={handleDeleteFormSubmit} index={selectedIndex}/>); break;
+            case 'edit': setModal(<EditModal title="Project" target={selectedItem} handleSubmit={(event) => handleEditFormSubmit(event, selectedIndex)}/>); break;
             default: return;
         }
         setShowModal(true);
@@ -189,9 +201,9 @@ export default function Overview() {
     return (
         <>
             <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
-                <Header data={headerData} breadcrumbs={true}/>
-                <Toolbar handleShowModal={handleShowModal} selectedProjectIndex={selectedProjectIndex}/>
-                <Content data={<ProjectList data={projects} selectedProjectIndex={selectedProjectIndex} handleSelect={handleProjectClick}/>} />
+                <Header data={headerData}/>
+                <Toolbar handleShowModal={handleShowModal} selectedIndex={selectedIndex}/>
+                <Content data={<ProjectList data={projects} selectedProjectIndex={selectedIndex} handleSelect={handleProjectClick}/>} />
                 <Modal active={showModal} form={modal} handleCloseModal={handleCloseModal}/>
                 <Footer/>
             </div>

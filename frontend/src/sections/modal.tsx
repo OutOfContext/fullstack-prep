@@ -1,5 +1,6 @@
 import '../assets/css/sections/modal.css'
 import React from "react";
+import AlertProvider from "../util/AlertContext.tsx";
 
 interface ModalProps {
     active: boolean,
@@ -15,7 +16,9 @@ export default function Modal(modalProps: ModalProps) {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={modalProps.handleCloseModal}>&times;</span>
-                        {modalProps.form}
+                        <AlertProvider>
+                            {modalProps.form}
+                        </AlertProvider>
                     </div>
                 </div>
             </div>

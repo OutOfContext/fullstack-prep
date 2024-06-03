@@ -25,33 +25,36 @@ export default function Header(headerProps: HeaderProps) {
     let navigationClass = "navigation";
     if (menuOpen) {
         navigationClass += " active";
+        document.querySelector('body').style.overflow = 'hidden';
+    } else {
+        document.querySelector('body').style.overflow = 'auto';
     }
 
     return (
-        <header style={{backgroundColor: '#333', color: '#fff', padding: '20px', textAlign: 'center'}}>
+        <header style={{backgroundColor: '#333', color: '#fff', textAlign: 'center'}}>
             <h1>{headerData.title}</h1>
-            <div className="burger-container">
-                <div className="burger-menu" onClick={() => setMenuOpen(!menuOpen)} ref={menuRef}>
+            <div className="burger-container" ref={menuRef}>
+                <div className="burger-menu" onClick={() => setMenuOpen(!menuOpen)}>
                     <div className="bar"></div>
                     <div className="bar"></div>
                     <div className="bar"></div>
                 </div>
+                {menuOpen &&
+                    <nav className={navigationClass} >
+                        {headerData.navigation.sections.map((section, index) => (
+                            <div key={index}>
+                                {section.displayName && <h3>{section.displayName}</h3>}
+                                <div className="separator-horizontal"></div>
+                                <ul>
+                                    {section.navItems.map((navItem, indexNo) => (
+                                        <li key={indexNo}><a href={navItem.targetPath}>{navItem.displayName}</a></li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </nav>
+                }
             </div>
-            {menuOpen &&
-                <nav className={navigationClass}>
-                    {headerData.navigation.sections.map((section, index) => (
-                        <div key={index}>
-                            {section.displayName && <h3>{section.displayName}</h3>}
-                            <div className="separator-horizontal"></div>
-                            <ul>
-                                {section.navItems.map((navItem, indexNo) => (
-                                    <li key={indexNo}><a href={navItem.targetPath}>{navItem.displayName}</a></li>
-                                ))}
-                            </ul>
-                        </div>
-                    ))}
-                </nav>
-            }
         </header>
     )
 }

@@ -1,11 +1,10 @@
 package com.primiq.raffael.backend.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
-public class Token {
+public class UserProfile {
 
+    private AccountDto account;
     private String token;
 }

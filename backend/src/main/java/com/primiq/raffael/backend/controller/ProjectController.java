@@ -1,15 +1,21 @@
 package com.primiq.raffael.backend.controller;
 
 import com.primiq.raffael.backend.model.dao.Project;
-import com.primiq.raffael.backend.model.dto.request.ProjectCreationRequest;
-import com.primiq.raffael.backend.model.dto.request.ProjectDeleteRequest;
+import com.primiq.raffael.backend.model.dao.Team;
+import com.primiq.raffael.backend.model.dto.AuthorityDetails;
+import com.primiq.raffael.backend.model.dto.request.project.ProjectCreationRequest;
+import com.primiq.raffael.backend.model.dto.request.project.ProjectDeleteRequest;
 import com.primiq.raffael.backend.model.dto.Message;
-import com.primiq.raffael.backend.model.dto.request.ProjectUpdateRequest;
+import com.primiq.raffael.backend.model.dto.request.project.ProjectUpdateRequest;
+import com.primiq.raffael.backend.service.AuthenticationService;
 import com.primiq.raffael.backend.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -18,9 +24,16 @@ import java.util.List;
 public class ProjectController {
 
     private final ProjectService projectService;
+    private final AuthenticationService authenticationService;
     @GetMapping
     public Message<List<Project>> fetchAllProjects(){
-        return Message.of(projectService.getAllProjects());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        AuthorityDetails details = authenticationService.getAuthorityDetails(authentication);
+        if (details == null){
+            return Message.of(Collections.emptyList());
+        }
+        List<Team> teams = details.getTeams();
+        return Message.of(projectService.getAllProjects(teams));
     }
 
     @PostMapping("/create")

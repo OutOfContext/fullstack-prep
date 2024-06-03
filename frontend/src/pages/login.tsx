@@ -4,7 +4,9 @@ import Content from "../sections/content.tsx";
 import Footer from "../sections/footer.tsx";
 import {HeaderData} from "../types/types.tsx";
 import LoginForm from "../components/content/loginForm.tsx";
-export default function Login(){
+import AlertProvider from "../util/AlertContext.tsx";
+
+export default function Login() {
     const headerData: HeaderData = {
         title: "Login",
         navigation: {
@@ -17,7 +19,7 @@ export default function Login(){
                             targetPath: "/login"
                         },
                         {
-                            displayName:"Register",
+                            displayName: "Register",
                             targetPath: "/register"
                         }
                     ]
@@ -29,8 +31,12 @@ export default function Login(){
     return (
         <>
             <div style={{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
-                <Header data={headerData} breadcrumbs={false}/>
-                <Content data={<LoginForm />}/>
+                <Header data={headerData}/>
+                <Content data={
+                    <AlertProvider>
+                        <LoginForm/>
+                    </AlertProvider>
+                }/>
                 <Footer/>
             </div>
         </>

@@ -1,0 +1,24 @@
+.alert {
+    margin-top: 20px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.success {
+    background-color: #5cb85c; /* Grüne Farbe für Erfolgsmeldungen */
+    color: #fff;
+}
+
+.error {
+    background-color: #d9534f; /* Rote Farbe für Fehlermeldungen */
+    color: #fff;
+}
+
+.warning {
+    background-color: #f0ad4e; /* Gelbe Farbe für Warnungen */
+    color: #fff;
+}

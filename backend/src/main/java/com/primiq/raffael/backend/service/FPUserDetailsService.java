@@ -26,9 +26,9 @@ public class FPUserDetailsService implements UserDetailsService {
         Optional<Account> maybeAccount = accountRepository.findByUsername(username);
         if(maybeAccount.isEmpty()){
             log.error("Username not found: " + username);
-            throw new UsernameNotFoundException("could not found user..!!");
+            throw new UsernameNotFoundException("User could not be found.");
         }
-        log.info("User Authenticated Successfully..!!!");
+        log.debug("User Authenticated Successfully..!!!");
         return new FPUserDetails(maybeAccount.get());
     }
 }

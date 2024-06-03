@@ -3,6 +3,7 @@ package com.primiq.raffael.backend.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
 @Data
 @NoArgsConstructor
@@ -18,8 +19,12 @@ public class Message<T> {
     }
     public static <T> Message<T> of(T target) {
         if (target == null) {
-            return new Message<>(null,404);
+            return of(null,HttpStatus.NOT_FOUND);
         }
-        return new Message<>(target, 200);
+        return of(target, HttpStatus.OK);
+    }
+
+    public static <T> Message<T> of(T target, HttpStatus status) {
+        return new Message<>(target, status.value());
     }
 }

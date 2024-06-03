@@ -7,8 +7,8 @@ interface PrivateRouteProps {
     component?: React.ReactNode | null;
 }
 
-export default function PrivateRoute(routeProps: PrivateRouteProps)  {
-    if (routeProps.isAuthenticated){
+export default function PrivateRoute(routeProps: PrivateRouteProps) {
+    if (routeProps.isAuthenticated) {
         return (
             routeProps.component
         );
